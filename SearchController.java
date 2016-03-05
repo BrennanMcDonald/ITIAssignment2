@@ -40,7 +40,6 @@ public class SearchController{
 			for(int i = 0; i < 6; i++){
 				int newX = 0;
 				int newY = 0;
-				// Refactor with 2d array indexed at n % 2
 				if (tempPoint.getY() % 2 == 0){
 					newX = tempPoint.getX() + xDirEven[i];
 					newY = tempPoint.getY() + yDirEven[i];

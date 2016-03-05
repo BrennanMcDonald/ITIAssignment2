@@ -20,7 +20,6 @@ public class BoardView extends JPanel {
 
 	public void update(){
 		removeAll(); 
-			System.out.println();
 
 		for(int y = 0; y < model.getSize(); y++){
 			JPanel panel = new JPanel();
@@ -30,14 +29,13 @@ public class BoardView extends JPanel {
 			}
 
 			for(int x = 0; x < model.getSize(); x++){
-				System.out.print(model.getCurrentStatus(x,y));
 				DotButton tempButton = new DotButton(x, y, model.getCurrentStatus(x,y));
 				tempButton.addActionListener(controller);
 				tempButton.setBorder(null);
 				tempButton.setPreferredSize(new Dimension(40,40));
 				panel.add(tempButton);
 			}
-			System.out.println();
+
 			add(panel);
 		}
 

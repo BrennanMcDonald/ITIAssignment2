@@ -56,6 +56,11 @@ class GameModel {
 	}
 
 	public void setCurrentDot(int x, int y){
+		if (getCurrentDot() != null){
+			int Cx = getCurrentDot().getX();
+			int Cy = getCurrentDot().getY();
+			gameStatus[Cy][Cx].setType(AVAILABLE);
+		}
 		gameStatus[y][x].setType(DOT);
 		blueDot = new Point(x,y);
 	}
