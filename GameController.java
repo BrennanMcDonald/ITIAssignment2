@@ -3,6 +3,12 @@ import java.awt.AWTEvent;
 import java.awt.event.*;
 import java.util.*;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 class GameController implements ActionListener{
 
 	private static GameView v;
@@ -36,12 +42,9 @@ class GameController implements ActionListener{
 		int amountOfDots = (int)(Math.floor((size * size) * probability));
 
 		for(int i = 0; i < amountOfDots+1; i++){
-			System.out.println(amountOfDots);
 			do {
 				x1 = ((int)(Math.random() * size));
 				y1 = ((int)(Math.random() * size));
-				System.out.println(x1);
-				System.out.println(y1);
 			} while( m.getCurrentStatus(x1,y1) != 0 );
 			m.select(x1,y1);
 		}
@@ -72,12 +75,9 @@ class GameController implements ActionListener{
 		int amountOfDots = (int)(Math.floor((size * size) * probability));
 
 		for(int i = 0; i < amountOfDots+1; i++){
-			System.out.println(amountOfDots);
 			do {
 				x1 = ((int)(Math.random() * size));
 				y1 = ((int)(Math.random() * size));
-				System.out.println(x1);
-				System.out.println(y1);
 			} while( m.getCurrentStatus(x1,y1) != 0 );
 			m.select(x1,y1);
 		}
@@ -102,13 +102,17 @@ class GameController implements ActionListener{
 			m);
 		LinkedList<Point> path = c.BFS(new Point(m.getCurrentDot().getX(), m.getCurrentDot().getY()));
 		if (path == null){
-			System.out.println("AI Won");
-			m.setCurrentDot(-1,-1);
-			v.getBoardView().update();
+			JOptionPane.showMessageDialog(null, "AI Won!");
+			v.setVisible(false); //you can't see me!
+			v.dispose(); //Destroy the JFrame object
+			reset();
 		} else {
 			if (path.size() == 0){
+				JOptionPane.showMessageDialog(null, "You Won!");
 				System.out.println("You won!");
-				v.getBoardView().update();
+				v.setVisible(false); //you can't see me!
+				v.dispose(); //Destroy the JFrame object
+				reset();
 
 			} else {
 				m.setCurrentDot((path.get(path.size() - 1)).getX(), (path.get(path.size() - 1)).getY());

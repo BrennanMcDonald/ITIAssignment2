@@ -10,12 +10,12 @@ class GameView extends JFrame {
 	private GridLayout gameGrid;
 	private JPanel buttonLayout; 
 	private JButton close_btn, reset_btn;
-
+	private GameController controller;
 
 	public GameView(GameModel model, GameController gameController) {
 		super("Board View");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		controller = gameController;
 		BV = new BoardView(model, gameController);
 		gameGrid = new GridLayout(1,2);
 		add(BV,BorderLayout.CENTER);
@@ -34,7 +34,7 @@ class GameView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false); //you can't see me!
 				dispose(); //Destroy the JFrame object
-				gameController.reset();
+				controller.reset();
 			}
 		}); 
 
