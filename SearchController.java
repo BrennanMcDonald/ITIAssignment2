@@ -28,19 +28,35 @@ public class SearchController{
 	}
 
 	public LinkedList<Point> BFS(Point p){
+		for(int i = 0; i < size; i++){
+			for(int l = 0; l < size; l++){
+				visited[i][l] = false;
+			}
+		}
 		LinkedList<Point> pathList = new LinkedList<Point>();
 		Queue<Point> nodeQueue = new LinkedList<Point>();
 		Map<String,Point> vertexMap = new HashMap<String,Point>();
 		nodeQueue.add(p);
 		int depth = 0;
 		while(!nodeQueue.isEmpty()){
+			if (nodeQueue.size() > (size * size)){
+				return (LinkedList<Point>)nodeQueue;
+			}
+			System.out.println(nodeQueue);
+			for(int x = 0; x < size; x++){
+				for(int y = 0; y < size; y++){
+					System.out.print(visited[y][x]);
+					System.out.print("\t");
+				}
+				System.out.println();
+			}
 			depth++;
 
 			Point tempPoint = nodeQueue.remove();
 			for(int i = 0; i < 6; i++){
 				int newX = 0;
 				int newY = 0;
-				if (tempPoint.getY() % 2 == 0){
+				if (tempPoint.getY() % 2 == 0) {
 					newX = tempPoint.getX() + xDirEven[i];
 					newY = tempPoint.getY() + yDirEven[i];
 				} else {
@@ -48,16 +64,22 @@ public class SearchController{
 					newY = tempPoint.getY() + yDirOdd[i];
 				}
 
-				if (newX >= 0 && newX < size && newY >= 0 && newY < size){
+				if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
 					if (!visited[newY][newY] && m.getCurrentStatus(newX, newY) == 0){
 						finishdPath[newY][newX] = tempPoint;
 						nodeQueue.add(new Point(newX, newY));
+						visited[newY][newY] = true;
 						if (!vertexMap.containsKey(new Point(newX, newY).toString())){
 							vertexMap.put((new Point(newX, newY)).toString(), tempPoint);
 						}
 					}
 				} else {
 					Point t = tempPoint;
+
+					if (vertexMap.get(t.toString()) == null){
+						return null;
+					}
+
 					while(vertexMap.get(t.toString()).toString() != p.toString()){
 						pathList.add(t);
 						t = vertexMap.get(t.toString());

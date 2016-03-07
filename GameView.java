@@ -24,6 +24,20 @@ class GameView extends JFrame {
 		close_btn = new JButton("Close");
 		reset_btn = new JButton("Reset");
 
+		close_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		}); 
+
+		reset_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false); //you can't see me!
+				dispose(); //Destroy the JFrame object
+				gameController.reset();
+			}
+		}); 
+
 		buttonLayout.setLayout(new FlowLayout());
 		buttonLayout.add(reset_btn, BorderLayout.WEST);
 		buttonLayout.add(close_btn, BorderLayout.EAST);
