@@ -12,7 +12,7 @@ public class DotButton extends JButton {
     private int row, column;
 
     public DotButton(int row, int column, int type) {
-    	ImageIcon img = new ImageIcon("ball-" + Integer.toString(type) + ".png");
+    	ImageIcon img = new ImageIcon("data/ball-" + Integer.toString(type) + ".png");
     	setPreferredSize(new Dimension(40, 40));
     	setIcon(img);
 

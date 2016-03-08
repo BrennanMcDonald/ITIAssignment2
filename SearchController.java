@@ -3,9 +3,7 @@ import java.util.*;
 public class SearchController{
 	private int size;
 	private GameModel m;
-	private Point originalPoint;
 
-	private Point[][] finishdPath;
 	private boolean[][] visited;
 	private int[] yDirEven = {-1,-1,0,1,1,0};
 	private int[] xDirEven = {-1,0,1,0,-1,-1};
@@ -13,34 +11,33 @@ public class SearchController{
 	private int[] yDirOdd = {-1,-1,0,1,1,0};
 	private int[] xDirOdd = {0,1,1,1,0,-1};
 
+	private LinkedList<Point> pathList;
+	private Queue<Point> nodeQueue;
+	private Map<String,Point> vertexMap;
+
 	public SearchController(Point p, int size, GameModel model){
 		this.size = size;
 		m = model;
-		originalPoint = p;
 		visited = new boolean[size][size];
-		finishdPath = new Point[size][size];
-		for(int i = 0; i < size; i++){
-			for(int l = 0; l < size; l++){
-				visited[i][l] = false;
-			}
-		}
-
 
 	}
 
 	public LinkedList<Point> BFS(Point p){
+		// Reset the visited nodes
 		for(int i = 0; i < size; i++){
 			for(int l = 0; l < size; l++){
 				visited[i][l] = false;
 			}
 		}
 
+		// Reset all maps and Queues
+		pathList = new LinkedList<Point>();
+		nodeQueue = new LinkedList<Point>();
+		vertexMap = new HashMap<String,Point>();
 
-
-		LinkedList<Point> pathList = new LinkedList<Point>();
-		Queue<Point> nodeQueue = new LinkedList<Point>();
-		Map<String,Point> vertexMap = new HashMap<String,Point>();
 		nodeQueue.add(p);
+		
+		// Breadth First Implimentation
 		while(!nodeQueue.isEmpty()){
 			if (nodeQueue.size() > (size * size)){
 				return (LinkedList<Point>)nodeQueue;
@@ -59,7 +56,6 @@ public class SearchController{
 				}
 				if (newX >= 0 && newX < size && newY >= 0 && newY < size) {
 					if (!visited[newY][newX] && m.getCurrentStatus(newX, newY) == 0){
-						finishdPath[newY][newX] = tempPoint;
 
 						nodeQueue.add(new Point(newX, newY));
 						visited[newY][newX] = true;
