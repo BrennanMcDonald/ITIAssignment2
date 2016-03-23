@@ -2,6 +2,8 @@
 
 class CircleTheDot{
 	public static void main(String[] args) {
+		StudentInfo i = new StudentInfo();
+		i.display();
 		int size = 7;
 		if (args.length == 1) {
 			try{
